@@ -1,5 +1,6 @@
 # Reinforcement_learning
-RL repo for my personal learning process for the Sutton Book "Reinforcement Learning: An Introduction"
+RL repo for my personal learning process for the Sutton Book "Reinforcement Learning: An Introduction" together with project implementing game AI using Deep Q learning, Double Q learning and Dueling DQN.
+This repo records the agent, DQN for snake game and flappy bird, saved training curve and model checkpoint for best reward.
 
 
 
