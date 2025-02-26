@@ -10,7 +10,7 @@ This repo records the agent, DQN for snake game and flappy bird, saved training 
 ## <p align="center">Flappy Bird RL Agent</p>
 
 <p align="center">
-  Here is the trained RL agent playing Flappy Bird:
+  Trained RL agent playing Flappy Bird:
 </p>
 
 <p align="center">
