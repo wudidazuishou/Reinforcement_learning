@@ -1,7 +1,27 @@
-cartpole1:
+cartpole:
   env_id: CartPole-v1
   replay_memory_size: 100000
   mini_batch_size: 16
   epsilon_init: 1
   epsilon_decay: 0.9995
   epsilon_min: 0.01
+  gamma: 0.99
+  maximum_reward: 100000
+  network_update_frequency: 10
+  lr: 0.0001
+
+flappybird:
+  env_id: FlappyBird-v0
+  replay_memory_size: 100000
+  mini_batch_size: 64
+  epsilon_init: 1
+  epsilon_decay: 0.995
+  epsilon_min: 0.05
+  network_update_frequency: 10
+  lr: 0.0001
+  gamma: 0.99
+  maximum_reward: 100000
+  fc1_nodes: 256
+  hidden_dim: 256
+  enable_double_dqn: True
+  enable_dueling_dqn: True
