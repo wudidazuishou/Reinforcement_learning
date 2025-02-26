@@ -18,6 +18,8 @@ import itertools
 import yaml
 import random
 import matplotlib.pyplot as plt
+import cv2
+import imageio
 
 
 # Directory for saving run info
@@ -60,7 +62,7 @@ class Agent():
 
 
     def play(self, num_episodes=20, is_render=False):
-        env=gymnasium.make(self.env_id, render_mode="human" if is_render else None)
+        env=gymnasium.make(self.env_id, render_mode="rgb_array")
         state_dim=env.observation_space.shape[0]
         action_dim=env.action_space.n
 
@@ -76,6 +78,7 @@ class Agent():
             state, _ = env.reset()
             terminated=False
             episode_reward=0
+            frames=[]
 
             while not terminated:
                 state=torch.tensor(state, dtype=torch.float).to(device)
@@ -84,8 +87,35 @@ class Agent():
                 new_state, reward, terminated, _, info = env.step(action.item())
                 episode_reward += reward
                 state=new_state
+                frame = env.render()
+                frames.append(frame)  # Convert to numpy array
+
             print(f"Episode {episode + 1}: Total Reward = {episode_reward}")
+
+            self.save_video(frames, f"flappy_bird_{episode+1}.mp4")
         env.close()
+
+
+    def save_video(self, frames, filename):
+
+
+        # Save as MP4
+      height, width, layers = frames[0].shape
+      fourcc = cv2.VideoWriter_fourcc(*"mp4v")
+      video = cv2.VideoWriter(filename, fourcc, 30, (width, height))
+
+      for frame in frames:
+        frame_bgr = cv2.cvtColor(frame, cv2.COLOR_RGB2BGR)
+        video.write(frame_bgr)
+        
+      video.release()
+
+      # Convert frames to uint8 numpy arrays (for GIF compatibility)
+      gif_frames = [np.array(frame, dtype=np.uint8) for frame in frames]
+
+        # Save as GIF
+      gif_filename = filename.replace(".mp4", ".gif")
+      imageio.mimsave(gif_filename, gif_frames, format="GIF", duration=1/30)  # 30 FPS → 33ms per frame
         
 
         
